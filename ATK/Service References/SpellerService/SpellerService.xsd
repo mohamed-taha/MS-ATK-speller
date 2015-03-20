@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://nlptoolkit.cloudapp.net" elementFormDefault="qualified" targetNamespace="http://nlptoolkit.cloudapp.net" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="DetectMistakes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="appId" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="inText" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="processLastWordOnly" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DetectMistakesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="DetectMistakesResult" type="tns:SpellerErrorCode" />
+        <xs:element minOccurs="0" maxOccurs="1" name="erroneousWords" type="tns:ArrayOfErroneousWord" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="SpellerErrorCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Success" />
+      <xs:enumeration value="ErrorNonInitialized" />
+      <xs:enumeration value="ErrorAccessDenied" />
+      <xs:enumeration value="ErrorQuotaExceeded" />
+      <xs:enumeration value="ErrorAuthintication" />
+      <xs:enumeration value="ErrorMaxLengthExceeded" />
+      <xs:enumeration value="ErrorUnknown" />
+      <xs:enumeration value="ErrorInvalidMode" />
+      <xs:enumeration value="ErrorInvalidParameter" />
+      <xs:enumeration value="ErrorDataFileNotFound" />
+      <xs:enumeration value="ErrorFailedToLoadData" />
+      <xs:enumeration value="ErrorFailedToSaveData" />
+      <xs:enumeration value="ErrorInsufficientResources" />
+      <xs:enumeration value="ErrorSarfDllMissing" />
+      <xs:enumeration value="ErrorFastMorphFailedToLoad" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ArrayOfErroneousWord">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ErroneousWord" nillable="true" type="tns:ErroneousWord" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ErroneousWord">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Corrections" type="tns:ArrayOfCorrection" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Position" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Word" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfCorrection">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Correction" nillable="true" type="tns:Correction" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Correction">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="CorrectionText" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CorrectionType" type="tns:CorrectionType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PositionInCorrectedText" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="CorrectionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CORRECTION_TYPE_AUTO" />
+      <xs:enumeration value="CORRECTION_TYPE_SPELLING" />
+      <xs:enumeration value="CORRECTION_TYPE_CONTEXTUAL" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="SuggestCorrections">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="appId" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="inText" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="correctionOptions" type="tns:SuggestionOption" />
+        <xs:element minOccurs="1" maxOccurs="1" name="processLastWordOnly" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="SuggestionOption">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="AutoCorrections" />
+      <xs:enumeration value="SpellingCorrections" />
+      <xs:enumeration value="AllCorrections" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="SuggestCorrectionsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="SuggestCorrectionsResult" type="tns:SpellerErrorCode" />
+        <xs:element minOccurs="0" maxOccurs="1" name="erroneousWords" type="tns:ArrayOfErroneousWord" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportCorrectionSelection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="appId" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="word" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="context" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="correction" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportCorrectionSelectionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="ReportCorrectionSelectionResult" type="tns:SpellerErrorCode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SuggestCorrectionForSpecificWord">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="appId" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="inText" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="wordPosition" type="xs:int" />
+        <xs:element minOccurs="1" maxOccurs="1" name="correctionOptions" type="tns:SuggestionOption" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SuggestCorrectionForSpecificWordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="SuggestCorrectionForSpecificWordResult" type="tns:SpellerErrorCode" />
+        <xs:element minOccurs="0" maxOccurs="1" name="erroneousWord" type="tns:ErroneousWord" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Autocorrect">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="appId" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="inText" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="processLastWordOnly" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AutocorrectResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="AutocorrectResult" type="tns:SpellerErrorCode" />
+        <xs:element minOccurs="0" maxOccurs="1" name="correctedText" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AutocorrectAndSuggest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="appId" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="inText" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="processLastWordOnly" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AutocorrectAndSuggestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="AutocorrectAndSuggestResult" type="tns:SpellerErrorCode" />
+        <xs:element minOccurs="0" maxOccurs="1" name="correctedText" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="erroneousWords" type="tns:ArrayOfErroneousWord" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AutocorrectAndSuggest2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="appId" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="inText" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="correctionOptions" type="tns:SuggestionOption" />
+        <xs:element minOccurs="1" maxOccurs="1" name="processLastWordOnly" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AutocorrectAndSuggest2Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="AutocorrectAndSuggest2Result" type="tns:SpellerErrorCode" />
+        <xs:element minOccurs="0" maxOccurs="1" name="correctedText" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="erroneousWords" type="tns:ArrayOfErroneousWord" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportWronglyDetectedWord">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="appId" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="word" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="context" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportWronglyDetectedWordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="ReportWronglyDetectedWordResult" type="tns:SpellerErrorCode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SuggestMissingCorrection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="appId" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="word" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="context" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="correction" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SuggestMissingCorrectionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="SuggestMissingCorrectionResult" type="tns:SpellerErrorCode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

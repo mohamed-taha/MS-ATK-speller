@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://nlptoolkit.cloudapp.net" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SpellerService" targetNamespace="http://nlptoolkit.cloudapp.net" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="HTTPS_ISpellerService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://nlptoolkit.cloudapp.net/Imports">
+      <xsd:import schemaLocation="https://atks.microsoft.com/Services/SpellerService.svc?xsd=xsd0" namespace="http://nlptoolkit.cloudapp.net" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ISpellerService_DetectMistakes_InputMessage">
+    <wsdl:part name="parameters" element="tns:DetectMistakes" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_DetectMistakes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DetectMistakesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_SuggestCorrections_InputMessage">
+    <wsdl:part name="parameters" element="tns:SuggestCorrections" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_SuggestCorrections_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SuggestCorrectionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_ReportCorrectionSelection_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportCorrectionSelection" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_ReportCorrectionSelection_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReportCorrectionSelectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_SuggestCorrectionForSpecificWord_InputMessage">
+    <wsdl:part name="parameters" element="tns:SuggestCorrectionForSpecificWord" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_SuggestCorrectionForSpecificWord_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SuggestCorrectionForSpecificWordResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_Autocorrect_InputMessage">
+    <wsdl:part name="parameters" element="tns:Autocorrect" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_Autocorrect_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AutocorrectResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_AutocorrectAndSuggest_InputMessage">
+    <wsdl:part name="parameters" element="tns:AutocorrectAndSuggest" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_AutocorrectAndSuggest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AutocorrectAndSuggestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_AutocorrectAndSuggest2_InputMessage">
+    <wsdl:part name="parameters" element="tns:AutocorrectAndSuggest2" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_AutocorrectAndSuggest2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AutocorrectAndSuggest2Response" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_ReportWronglyDetectedWord_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportWronglyDetectedWord" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_ReportWronglyDetectedWord_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReportWronglyDetectedWordResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_SuggestMissingCorrection_InputMessage">
+    <wsdl:part name="parameters" element="tns:SuggestMissingCorrection" />
+  </wsdl:message>
+  <wsdl:message name="ISpellerService_SuggestMissingCorrection_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SuggestMissingCorrectionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ISpellerService">
+    <wsdl:documentation>&lt;summary&gt;
+            Speller APIs. Contains spell checking and feedback APIs.
+            &lt;/summary&gt;</wsdl:documentation>
+    <wsdl:operation name="DetectMistakes">
+      <wsdl:documentation>&lt;summary&gt;
+            Detects mistakes in the input text only and does not return candidate corrections.
+            &lt;/summary&gt;
+            &lt;param name="appId"&gt;Your Application Guid&lt;/param&gt;
+            &lt;param name="inText"&gt;The input text. Maximum length is 8000 characters.&lt;/param&gt;
+            &lt;param name="processLastWordOnly"&gt;Whether to process the last word only or the whole text&lt;/param&gt;
+            &lt;param name="erroneousWords"&gt;The output list of erroneous words&lt;/param&gt;
+            &lt;returns&gt;SpellerErrorCode.Success or one of the Speller error codes&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/DetectMistakes" message="tns:ISpellerService_DetectMistakes_InputMessage" />
+      <wsdl:output wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/DetectMistakesResponse" message="tns:ISpellerService_DetectMistakes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SuggestCorrections">
+      <wsdl:documentation>&lt;summary&gt;
+            Detects erroneous words in the input text and suggest corrections for each word
+            &lt;/summary&gt;
+            &lt;remarks&gt;There is no need to call DetectMistakes() before calling this function.&lt;/remarks&gt;
+            &lt;param name="appId"&gt;Your Application Guid&lt;/param&gt;
+            &lt;param name="inText"&gt;The input text. Maximum length is 8000 characters.&lt;/param&gt;
+            &lt;param name="correctionOptions"&gt;One of the &lt;see cref="T:SuggestionOption" /&gt; enumerated values that specify suggestion options to consider&lt;/param&gt;
+            &lt;param name="processLastWordOnly"&gt;Whether to process the last word only or the whole text&lt;/param&gt;
+            &lt;param name="erroneousWords"&gt;The output list of erroneous words&lt;/param&gt;
+            &lt;returns&gt;SpellerErrorCode.Success or one of the Speller error codes&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/SuggestCorrections" message="tns:ISpellerService_SuggestCorrections_InputMessage" />
+      <wsdl:output wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/SuggestCorrectionsResponse" message="tns:ISpellerService_SuggestCorrections_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportCorrectionSelection">
+      <wsdl:documentation>&lt;summary&gt;
+            Reports that this correction was selected as a result of later processing or user selection
+            &lt;/summary&gt;
+            &lt;param name="appId"&gt;Your Application Guid&lt;/param&gt;
+            &lt;param name="word"&gt;The wrong word that has been corrected&lt;/param&gt;
+            &lt;param name="context"&gt;The text context in which the word appeared, can be one line of text or a 5 to 9 words window. Maximum length is 250 characters&lt;/param&gt;
+            &lt;param name="correction"&gt;The correction that was selected&lt;/param&gt;
+            &lt;returns&gt;SpellerErrorCode.Success or one of the Speller error codes&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/ReportCorrectionSelection" message="tns:ISpellerService_ReportCorrectionSelection_InputMessage" />
+      <wsdl:output wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/ReportCorrectionSelectionResponse" message="tns:ISpellerService_ReportCorrectionSelection_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SuggestCorrectionForSpecificWord">
+      <wsdl:documentation>&lt;summary&gt;
+            Detects mistakes in the specified word and suggest corrections for it
+            &lt;/summary&gt;
+            &lt;remarks&gt;This function makes internal tokenization which is a heavy load process. It is better to call SuggestCorrections() with a single word if possible.&lt;/remarks&gt;
+            &lt;param name="appId"&gt;Your Application Guid&lt;/param&gt;
+            &lt;param name="inText"&gt;The input text. Maximum length is 250 characters.&lt;/param&gt;
+            &lt;param name="wordPosition"&gt;The position of the word to process&lt;/param&gt;
+            &lt;param name="correctionOptions"&gt;One of the &lt;see cref="T:SuggestionOption" /&gt; enumerated values that specify suggestion options to consider&lt;/param&gt;
+            &lt;param name="erroneousWord"&gt;The output list of erroneous words&lt;/param&gt;
+            &lt;returns&gt;SpellerErrorCode.Success or one of the Speller error codes&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/SuggestCorrectionForSpecificWord" message="tns:ISpellerService_SuggestCorrectionForSpecificWord_InputMessage" />
+      <wsdl:output wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/SuggestCorrectionForSpecificWordResponse" message="tns:ISpellerService_SuggestCorrectionForSpecificWord_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Autocorrect">
+      <wsdl:documentation>&lt;summary&gt;
+            Automatically corrects mistakes in the input text
+            &lt;/summary&gt;
+            &lt;param name="appId"&gt;Your Application Guid&lt;/param&gt;
+            &lt;param name="inText"&gt;The input text. Maximum length is 8000 characters.&lt;/param&gt;
+            &lt;param name="processLastWordOnly"&gt;Whether to process the last word only or the whole text&lt;/param&gt;
+            &lt;param name="correctedText"&gt;The output autocorrected text&lt;/param&gt;
+            &lt;returns&gt;SpellerErrorCode.Success or one of the Speller error codes&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/Autocorrect" message="tns:ISpellerService_Autocorrect_InputMessage" />
+      <wsdl:output wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/AutocorrectResponse" message="tns:ISpellerService_Autocorrect_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AutocorrectAndSuggest">
+      <wsdl:documentation>&lt;summary&gt;
+             Automatically corrects mistakes in the input text and suggest corrections for each erroneous word
+             &lt;/summary&gt;
+             &lt;param name="appId"&gt;Your Application Guid&lt;/param&gt;
+             &lt;param name="inText"&gt;The input text. Maximum length is 8000 characters.&lt;/param&gt;
+             &lt;param name="processLastWordOnly"&gt;Whether to process the last word only or the whole text&lt;/param&gt;
+             &lt;param name="correctedText"&gt;The output autocorrected text&lt;/param&gt;
+             &lt;param name="erroneousWords"&gt;The output list of erroneous words&lt;/param&gt;
+             &lt;returns&gt;SpellerErrorCode.Success or one of the Speller error codes&lt;/returns&gt;
+             &lt;example&gt;
+             This sample shows how to call the AutocorrectAndSuggest method and report your feedback.
+             &lt;code lang="C#"&gt;
+             using (SpellerServiceClient SpellerClient = new SpellerServiceClient())
+             {
+                 string AppID = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+                 ErroneousWord[] WrongWords = null;
+                 string CorrectedText = null;
+                 &lt;![CDATA[Dictionary&lt;string, List&lt;string&gt;&gt; Suggestions = null;]]&gt;
+            
+                 // Detect mistakes, get suggestions for wrong words and autocorrect the input text
+                 SpellerErrorCode RetCode = SpellerClient.AutocorrectAndSuggest(AppID, textArabicLine.Text, false, out CorrectedText, out WrongWords);
+            
+                 if (RetCode == SpellerErrorCode.Success)
+                 {
+                     // Display the suggested autocorrection for the whole text
+                     textAutocorrectedLine.Text = CorrectedText;
+                
+                     // Prepare list of suggestions for non-autocorrected words
+                     &lt;![CDATA[Suggestions = new Dictionary&lt;string, List&lt;string&gt;&gt;();]]&gt;
+            
+                     foreach (ErroneousWord WrongWord in WrongWords)
+                     {
+                         // Highlight the wrong words
+                         HighlightWrongWord(WrongWord.Position, WrongWord.Word.Length);
+            
+                         // Fill word suggestions for non-autocorrected words
+                         &lt;![CDATA[Suggestions.Add(WrongWord.Word, new List&lt;string&gt;());]]&gt;
+                         foreach(Correction SuggestedCorrection in WrongWord.Corrections)
+                         {
+                             if (SuggestedCorrection.CorrectionType != CorrectionType.CORRECTION_TYPE_AUTO)
+                             {
+                                 Suggestions[WrongWord.Word].Add(SuggestedCorrection.CorrectionText);
+                             }
+                         }
+            
+                         // Some processing or user input ...
+            
+                         // If the word is not wrong, it is recommended to report that
+                         // the word is wrongly detected for enhancing Speller performance
+                         SpellerClient.ReportWronglyDetectedWord(AppID, WrongWord.Word, textArabicLine.Text);
+            
+                         // If the suggested corrections are not sufficient, it is recommended to suggest a new correction
+                         SpellerClient.SuggestMissingCorrection(AppID, WrongWord.Word, textArabicLine.Text, YourSuggestedCorrection);
+                     }
+                 }
+                 else
+                 {
+                     MessageBox.Show("Failed with error code " + RetCode.ToString());
+                 }
+             }
+             &lt;/code&gt;
+             &lt;/example&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/AutocorrectAndSuggest" message="tns:ISpellerService_AutocorrectAndSuggest_InputMessage" />
+      <wsdl:output wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/AutocorrectAndSuggestResponse" message="tns:ISpellerService_AutocorrectAndSuggest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AutocorrectAndSuggest2">
+      <wsdl:documentation>&lt;summary&gt;
+            Automatically corrects mistakes in the input text and suggest corrections for each erroneous word
+            &lt;/summary&gt;
+            &lt;param name="appId"&gt;Your Application Guid&lt;/param&gt;
+            &lt;param name="inText"&gt;The input text. Maximum length is 8000 characters.&lt;/param&gt;
+            &lt;param name="correctionOptions"&gt;One of the &lt;see cref="T:SuggestionOption" /&gt; enumerated values that specify suggestion options to consider&lt;/param&gt;
+            &lt;param name="processLastWordOnly"&gt;Whether to process the last word only or the whole text&lt;/param&gt;
+            &lt;param name="correctedText"&gt;The output autocorrected text&lt;/param&gt;
+            &lt;param name="erroneousWords"&gt;The output list of erroneous words&lt;/param&gt;
+            &lt;returns&gt;SpellerErrorCode.Success or one of the Speller error codes&lt;/returns&gt;
+            &lt;example&gt;
+            See &lt;see cref="M:AutocorrectAndSuggest()" /&gt; for an example.
+            &lt;/example&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/AutocorrectAndSuggest2" message="tns:ISpellerService_AutocorrectAndSuggest2_InputMessage" />
+      <wsdl:output wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/AutocorrectAndSuggest2Response" message="tns:ISpellerService_AutocorrectAndSuggest2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportWronglyDetectedWord">
+      <wsdl:documentation>&lt;summary&gt;
+            Reports that a word is detected as a wrong word while it is correct
+            &lt;/summary&gt;
+            &lt;param name="appId"&gt;Your Application Guid&lt;/param&gt;
+            &lt;param name="word"&gt;The correct word that was detected as wrong&lt;/param&gt;
+            &lt;param name="context"&gt;The text context in which the word appeared, can be one line of text or a 5 to 9 words window. Maximum length is 250 characters&lt;/param&gt;
+            &lt;returns&gt;SpellerErrorCode.Success or one of the Speller error codes&lt;/returns&gt;
+            &lt;example&gt;
+            See &lt;see cref="M:AutocorrectAndSuggest()" /&gt; for an example.
+            &lt;/example&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/ReportWronglyDetectedWord" message="tns:ISpellerService_ReportWronglyDetectedWord_InputMessage" />
+      <wsdl:output wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/ReportWronglyDetectedWordResponse" message="tns:ISpellerService_ReportWronglyDetectedWord_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SuggestMissingCorrection">
+      <wsdl:documentation>&lt;summary&gt;
+            Suggests that a non-detected word is wrong and have the suggested correction or that the suggested correction was not in the list of candidates
+            &lt;/summary&gt;
+            &lt;param name="appId"&gt;Your Application Guid&lt;/param&gt;
+            &lt;param name="word"&gt;The wrong word that has a missing correction&lt;/param&gt;
+            &lt;param name="context"&gt;The text context in which the word appeared, can be one line of text or a 5 to 9 words window. Maximum length is 250 characters&lt;/param&gt;
+            &lt;param name="correction"&gt;The suggested correction&lt;/param&gt;
+            &lt;returns&gt;SpellerErrorCode.Success or one of the Speller error codes&lt;/returns&gt;
+            &lt;example&gt;
+            See &lt;see cref="M:AutocorrectAndSuggest()" /&gt; for an example.
+            &lt;/example&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/SuggestMissingCorrection" message="tns:ISpellerService_SuggestMissingCorrection_InputMessage" />
+      <wsdl:output wsaw:Action="http://nlptoolkit.cloudapp.net/ISpellerService/SuggestMissingCorrectionResponse" message="tns:ISpellerService_SuggestMissingCorrection_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HTTP_ISpellerService" type="tns:ISpellerService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DetectMistakes">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/DetectMistakes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuggestCorrections">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/SuggestCorrections" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportCorrectionSelection">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/ReportCorrectionSelection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuggestCorrectionForSpecificWord">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/SuggestCorrectionForSpecificWord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Autocorrect">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/Autocorrect" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AutocorrectAndSuggest">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/AutocorrectAndSuggest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AutocorrectAndSuggest2">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/AutocorrectAndSuggest2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportWronglyDetectedWord">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/ReportWronglyDetectedWord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuggestMissingCorrection">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/SuggestMissingCorrection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="HTTPS_ISpellerService" type="tns:ISpellerService">
+    <wsp:PolicyReference URI="#HTTPS_ISpellerService_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DetectMistakes">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/DetectMistakes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuggestCorrections">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/SuggestCorrections" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportCorrectionSelection">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/ReportCorrectionSelection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuggestCorrectionForSpecificWord">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/SuggestCorrectionForSpecificWord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Autocorrect">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/Autocorrect" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AutocorrectAndSuggest">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/AutocorrectAndSuggest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AutocorrectAndSuggest2">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/AutocorrectAndSuggest2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportWronglyDetectedWord">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/ReportWronglyDetectedWord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuggestMissingCorrection">
+      <soap:operation soapAction="http://nlptoolkit.cloudapp.net/ISpellerService/SuggestMissingCorrection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SpellerService">
+    <wsdl:port name="HTTP_ISpellerService" binding="tns:HTTP_ISpellerService">
+      <soap:address location="http://rd00155d3a4ecf/Services/SpellerService.svc" />
+    </wsdl:port>
+    <wsdl:port name="HTTPS_ISpellerService" binding="tns:HTTPS_ISpellerService">
+      <soap:address location="https://atks.microsoft.com/Services/SpellerService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
